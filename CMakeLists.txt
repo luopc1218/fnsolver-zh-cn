@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.28)
 project(fnsolver
     VERSION 1.1.1
-    DESCRIPTION "A tool for \"Xenoblade Chronicles X\" and \"Xenoblade Chronicles X: Definitive Edition\", which generates tailored solutions to FrontierNav layouts."
+    DESCRIPTION "《异度神剑X》边境网络布局求解工具（简体中文版）"
     LANGUAGES CXX
-    HOMEPAGE_URL "https://github.com/beta382/fnsolver"
+    HOMEPAGE_URL "https://github.com/luopc1218/fnsolver-zh-cn"
 )
-set(PROJECT_DISPLAY_NAME "FnSolver")
+set(PROJECT_DISPLAY_NAME "FnSolver 简体中文版")
 set(PROJECT_AUTHOR "beta382")
 set(PROJECT_ORGANIZATION_NAME "${PROJECT_AUTHOR}")
 set(CMAKE_CXX_STANDARD 20)

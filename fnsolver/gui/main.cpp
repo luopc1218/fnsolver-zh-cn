@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
     app.installTranslator(&qt_translator);
   }
   QTranslator app_translator;
-  if (app_translator.load(QLocale::system(), QString(":/i18n/%1_en_US.qm").arg(app.applicationName()))) {
+  if (app_translator.load(QString(":/i18n/%1_zh_CN.qm").arg(app.applicationName()))) {
     app.installTranslator(&app_translator);
   }
 

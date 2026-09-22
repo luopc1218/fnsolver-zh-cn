@@ -86,11 +86,11 @@ endif ()
 
 # When Qt min is 6.7 or higher, this can be replaced with qt_add_translations.
 qt_add_lupdate(${TARGET}
-    TS_FILES translations/${PROJECT_NAME}_en_US.ts
-    OPTIONS -pluralonly -source-language en_US
+    TS_FILES translations/${PROJECT_NAME}_zh_CN.ts
+    OPTIONS -source-language en_US -target-language zh_CN
 )
 qt_add_lrelease(${TARGET}
-    TS_FILES translations/${PROJECT_NAME}_en_US.ts
+    TS_FILES translations/${PROJECT_NAME}_zh_CN.ts
     QM_FILES_OUTPUT_VARIABLE QM_FILES
 )
 qt_add_resources(${TARGET} "translations"
