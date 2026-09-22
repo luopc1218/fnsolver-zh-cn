@@ -1,7 +1,14 @@
 name: Build
 on:
-  push: ~
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
   workflow_dispatch: ~
+
+permissions:
+  contents: write
 
 env:
   SOURCE_DIR: ${{github.workspace}}
@@ -19,10 +26,12 @@ jobs:
       matrix:
         system:
           - os: ubuntu-latest
+            artifact_name: linux
             cmake_preset: release
             cpack_generator: "DEB;RPM;TGZ"
             binary_dir: "build-release"
           - os: windows-latest
+            artifact_name: windows-x86_64
             cmake_preset: release-win-mingw
             cpack_generator: "NSIS;ZIP"
             binary_dir: "build-release-win"
@@ -85,12 +94,36 @@ jobs:
         uses: actions/upload-artifact@v4
         if: ${{failure()}}
         with:
-          name: failed_package_${{runner.os}}
+          name: failed-packages-${{matrix.system.artifact_name}}
           path: ${{matrix.system.binary_dir}}/packages
 
       - name: Upload packages
         uses: actions/upload-artifact@v4
         with:
-          name: packages_${{runner.os}}_${{runner.arch}}
+          name: packages-${{matrix.system.artifact_name}}
           path: ${{matrix.system.binary_dir}}/packages/*.*
           if-no-files-found: error
+
+  release:
+    name: Publish GitHub Release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Windows packages
+        uses: actions/download-artifact@v4
+        with:
+          name: packages-windows-x86_64
+          path: release-assets
+
+      - name: Publish Windows installer and portable package
+        env:
+          GH_TOKEN: ${{github.token}}
+        run: >
+          gh release create "${GITHUB_REF_NAME}"
+          release-assets/*.exe
+          release-assets/*.zip
+          --repo "${GITHUB_REPOSITORY}"
+          --verify-tag
+          --generate-notes
+          --title "FnSolver 简体中文版 ${GITHUB_REF_NAME}"

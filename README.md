@@ -31,6 +31,20 @@ cmake --build build
 
 Windows 的详细环境配置和打包方式可参考[英文原版文档](README.en.md#building)。
 
+## Windows 下载与发布
+
+每个正式版本会在仓库的 [Releases](https://github.com/luopc1218/fnsolver-zh-cn/releases) 页面提供：
+
+- `.exe`：Windows 安装包。
+- `.zip`：免安装便携包。
+
+维护者推送以 `v` 开头的版本标签后，GitHub Actions 会自动使用 MinGW 和 Qt 构建上述两个文件并创建 Release：
+
+```bash
+git tag v1.1.1-zh.1
+git push origin v1.1.1-zh.1
+```
+
 ## 更新翻译
 
 先用 Qt `lupdate` 从源码更新中文 TS 文件，再运行人工翻译映射脚本：
@@ -62,4 +76,3 @@ git merge upstream/main
 FnSolver 原项目由 beta382 开发，并采用 [MIT License](LICENSE) 开源。本仓库保留原作者版权及第三方许可证声明。
 
 《异度神剑X》及相关名称、图像和游戏素材的权利归其各自权利人所有。本项目是玩家制作的非官方工具，与 Nintendo、MONOLITHSOFT 及原项目作者不存在官方隶属或授权关系。
-
